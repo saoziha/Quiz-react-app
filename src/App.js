@@ -107,14 +107,13 @@ export default class App extends Component {
       score: 0,
       index: 0,
       objAnswer: {},
-      answer: '',
       isResult: true
     };
   }
   setCurrent = current => this.setState({ current });
-  setScore = score => this.setState({ score });
   setIndex = index => this.setState({ index });
 
+  // get selected answer from radio button
   getValueButton = e => {
     const { objAnswer, questions } = this.state;
     let obj = objAnswer;
@@ -129,7 +128,6 @@ export default class App extends Component {
 
   nextButton = e => {
     e.preventDefault();
-    // this.calculateScore();
     this.setState({
       current: this.state.current + 1,
       index: this.state.index + 1
@@ -144,9 +142,9 @@ export default class App extends Component {
     });
   };
 
+  //show result and calculate score
   showResult = e => {
     e.preventDefault();
-    // this.calculateScore();
     this.setState({
       current: this.state.current + 1,
       isResult: !this.state.isResult
@@ -156,38 +154,25 @@ export default class App extends Component {
     let arr = [];
     let correctAnswers = questions.map((question, index) => question.answer);
 
+    //get value from selected answer object
     for (let [key, value] of Object.entries(objAnswer)) {
       arr.push(value);
     }
+
+    //compare with correct answer and calculate score
     let currentScore = this.state.score;
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] == correctAnswers[i]) {
         currentScore++;
       }
     }
+
     this.setState(
       {
         score: currentScore
       },
       () => console.log(this.state.score)
     );
-  };
-
-  calculateScore = () => {
-    // const { questions, objAnswer, score } = this.state;
-    // let arr = [];
-    // let correctAnswers = questions.map((question, index) => question.answer);
-    // for (let [key, value] of Object.entries(objAnswer)) {
-    //   arr.push(value);
-    // }
-    // for (let i = 0; i < arr.length; i++) {
-    //   if (arr[i] == correctAnswers[i]) {
-    //     this.setState({
-    //       score: this.state.score + 1
-    //     });
-    //   }
-    //   console.log(this.state.score);
-    // }
   };
 
   render() {
@@ -214,8 +199,8 @@ export default class App extends Component {
           <div>
             {this.state.isResult ? (
               <QuestionList
-                setCurrent={this.setCurrent.bind(this)}
-                setIndex={this.setIndex.bind(this)}
+                setCurrent={this.setCurrent}
+                setIndex={this.setIndex}
                 onSelectedAnwser={this.getValueButton}
                 onClickNext={this.nextButton}
                 onClickPrev={this.prevButton}
