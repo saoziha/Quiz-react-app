@@ -97,7 +97,7 @@ export default class App extends Component {
             },
             {
               id: 'd',
-              text: 'Budlight'
+              text: 'Budlights'
             }
           ],
           answer: 'c'
