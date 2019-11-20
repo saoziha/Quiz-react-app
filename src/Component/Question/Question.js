@@ -20,7 +20,7 @@ export default class Question extends Component {
         );
       });
     } else {
-      answer = 'sai roi';
+      answer = 'sai roii';
     }
 
     let buttonNext = (
